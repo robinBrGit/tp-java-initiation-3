@@ -14,6 +14,7 @@ import java.io.ObjectOutputStream;
 public class Banque implements Serializable{
     private ArrayList<Proprietaire> listProprietaire;
     private ArrayList<CompteBancaire> listCompteBancaire;
+    private ArrayList<VirementAutomatique> listeVirementAuto;
 
     public ArrayList<Proprietaire> getListProprietaire() {
         return listProprietaire;
@@ -26,6 +27,7 @@ public class Banque implements Serializable{
     public Banque(ArrayList<Proprietaire> listProprietaire, ArrayList<CompteBancaire> listCompteBancaire) {
         this.listProprietaire = listProprietaire;
         this.listCompteBancaire = listCompteBancaire;
+        this.listeVirementAuto = new ArrayList<VirementAutomatique>();
     }
 
     public void appliquerInterets(){
@@ -34,7 +36,8 @@ public class Banque implements Serializable{
         }
     }
 
-    public ArrayList<Proprietaire> searchProprietaire(String nomProprietaire){
+
+    public ArrayList<Proprietaire> searchProprietaires(String nomProprietaire){
         ArrayList<Proprietaire> listProprio = new ArrayList<Proprietaire>();
         for (Proprietaire unProprio: listProprietaire) {
             if(unProprio.getNom().equals(nomProprietaire) || unProprio.getNom().contains(nomProprietaire)){
@@ -43,6 +46,7 @@ public class Banque implements Serializable{
         }
         return  listProprio;
     }
+
 
     public ArrayList<CompteBancaire> getListCompteBancaireFrom(Proprietaire unProprio){
         ArrayList<CompteBancaire> lesCompte = new ArrayList<CompteBancaire>();
@@ -119,5 +123,89 @@ public class Banque implements Serializable{
 
        return uneBanque;
     }
-}
+
+    public void addVirementAuto(CompteBancaire debit, CompteBancaire dest, float montant){
+        ObjectInputStream ois = null;
+        ObjectOutputStream oos;
+        ArrayList<VirementAutomatique> listVirement = new ArrayList<VirementAutomatique>() ;
+        File fich = new File("virement.txt");
+
+        if(fich.length() > 0) {
+            //On récupèreles données !
+            try {
+                ois = new ObjectInputStream(
+                        new BufferedInputStream(
+                                new FileInputStream(
+                                        new File("virement.txt"))));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+            try {
+                if(ois != null){
+                    listVirement = (ArrayList<VirementAutomatique>)ois.readObject();
+                    ois.close();
+                }
+
+                VirementAutomatique unVirement = new VirementAutomatique(debit,dest,montant);
+                listVirement.add(unVirement);
+
+                oos = new ObjectOutputStream(
+                        new BufferedOutputStream(
+                                new FileOutputStream(
+                                        new File("virement.txt"))));
+
+                //Nous allons écrire l'obet banque dans un fichier
+                oos.writeObject(listVirement);
+                //Ne pas oublier de fermer le flux !
+                oos.close();
+
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        public ArrayList<VirementAutomatique> getListeVirementAuto() {
+            ObjectInputStream ois = null;
+            ObjectOutputStream oos;
+            ArrayList<VirementAutomatique> listVirement = new ArrayList<VirementAutomatique>();
+            File fich = new File("virement.txt");
+
+            //On récupèreles données !
+            try {
+                ois = new ObjectInputStream(
+                        new BufferedInputStream(
+                                new FileInputStream(
+                                        new File("virement.txt"))));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+
+                try {
+                    listVirement = (ArrayList<VirementAutomatique>) ois.readObject();
+
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                ois.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return listVirement;
+        }
+
+        public void doLesVirementAuto(){
+        this.listeVirementAuto = this.getListeVirementAuto();
+        for(VirementAutomatique unVirementAuto: listeVirementAuto){
+            unVirementAuto.doVirementAuto();
+        }
+        }
+
+    }
+
 

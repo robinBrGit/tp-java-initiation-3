@@ -62,5 +62,10 @@ public class App
 
         System.out.println(uneBanque2.getListCompteBancaire().get(0).getProprietaire()+" : "+uneBanque2.getListCompteBancaire().get(0).getMontant());
 
+        //uneBanque.addVirementAuto(compte1,compte2,200);
+        //uneBanque.addVirementAuto(compte2,compte3,400);
+
+        System.out.println(uneBanque.getListeVirementAuto());
+
     }
 }
