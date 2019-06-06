@@ -31,6 +31,6 @@ public class LEP extends CompteBancaire {
 
     @Override
     public void appliquerInteret() {
-        this.montant = this.montant*INTERRET;
+        this.montant += this.montant*INTERRET/100;
     }
 }

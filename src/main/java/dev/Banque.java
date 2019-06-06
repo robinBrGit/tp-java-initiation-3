@@ -1,10 +1,27 @@
 package dev;
-
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
-public class Banque {
+public class Banque implements Serializable{
     private ArrayList<Proprietaire> listProprietaire;
     private ArrayList<CompteBancaire> listCompteBancaire;
+
+    public ArrayList<Proprietaire> getListProprietaire() {
+        return listProprietaire;
+    }
+
+    public ArrayList<CompteBancaire> getListCompteBancaire() {
+        return listCompteBancaire;
+    }
 
     public Banque(ArrayList<Proprietaire> listProprietaire, ArrayList<CompteBancaire> listCompteBancaire) {
         this.listProprietaire = listProprietaire;
@@ -20,7 +37,7 @@ public class Banque {
     public ArrayList<Proprietaire> searchProprietaire(String nomProprietaire){
         ArrayList<Proprietaire> listProprio = new ArrayList<Proprietaire>();
         for (Proprietaire unProprio: listProprietaire) {
-            if(unProprio.getNom().equals(nomProprietaire) || unProprio.getNom().indexOf(nomProprietaire) != -1){
+            if(unProprio.getNom().equals(nomProprietaire) || unProprio.getNom().contains(nomProprietaire)){
                 listProprio.add(unProprio);
             }
         }
@@ -52,4 +69,55 @@ public class Banque {
         }
         return total;
     }
+
+    public static void save(Banque uneBanque){
+        //Nous déclarons nos objets en dehors du bloc try/catch
+
+        ObjectOutputStream oos;
+        try {
+            oos = new ObjectOutputStream(
+                    new BufferedOutputStream(
+                            new FileOutputStream(
+                                    new File("banque.txt"))));
+
+            //Nous allons écrire l'obet banque dans un fichier
+            oos.writeObject(uneBanque);
+            //Ne pas oublier de fermer le flux !
+            oos.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Banque load(){
+        ObjectInputStream ois;
+        Banque uneBanque=null;
+        try {
+            //On récupèreles données !
+            ois = new ObjectInputStream(
+                    new BufferedInputStream(
+                            new FileInputStream(
+                                    new File("banque.txt"))));
+            try {
+
+                uneBanque = (Banque)ois.readObject();
+
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            ois.close();
+
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+       return uneBanque;
+    }
 }
+

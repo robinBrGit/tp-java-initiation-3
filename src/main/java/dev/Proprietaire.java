@@ -1,6 +1,6 @@
 package dev;
-
-public abstract class Proprietaire {
+import java.io.Serializable;
+public abstract class Proprietaire implements Serializable {
     protected String nom;
     protected String adresse;
 
@@ -26,5 +26,8 @@ public abstract class Proprietaire {
 
     public abstract String getType();
 
-
+    @Override
+    public String toString() {
+        return this.nom;
+    }
 }

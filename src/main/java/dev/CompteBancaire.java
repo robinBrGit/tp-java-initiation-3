@@ -1,6 +1,6 @@
 package dev;
-
-public abstract class CompteBancaire {
+import java.io.Serializable;
+public abstract class CompteBancaire implements Serializable {
     protected Proprietaire proprietaire;
     protected int idCompteUnique;
     protected static int NB_COMPTE = 1;

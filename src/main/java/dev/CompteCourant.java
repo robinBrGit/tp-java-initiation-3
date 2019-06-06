@@ -3,7 +3,7 @@ package dev;
 public class CompteCourant extends CompteBancaire {
     private float decouvert;
 
-    public CompteCourant(Proprietaire proprietaire, int montant, float decouvert) {
+    public CompteCourant(Proprietaire proprietaire, float montant, float decouvert) {
         super(proprietaire, montant);
         this.decouvert = decouvert;
     }
