@@ -1,15 +1,7 @@
 package dev;
-import java.io.Serializable;
+
+import java.io.*;
 import java.util.ArrayList;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 // TODO: 06/06/2019 Ajouter des commentaire 
 public class Banque implements Serializable{

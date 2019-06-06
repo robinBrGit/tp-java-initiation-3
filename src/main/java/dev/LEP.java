@@ -6,13 +6,14 @@ public class LEP extends CompteBancaire {
     private final float PLAFOND_MIN = 30;
     private final float PLAFOND_MAX = 7700;
 
-    public LEP(Proprietaire proprietaire, float montant) {
+    public LEP(Personne proprietaire, float montant) {
         super(proprietaire, montant);
+
     }
 
     @Override
     public void retrait(float montantRetrait) {
-        if(this.montant-PLAFOND_MIN >= montantRetrait)
+        if (this.montant - PLAFOND_MIN >= montantRetrait)
             super.retrait(montantRetrait);
         else System.out.println("Fond insufisant pour effectuer le retrait");
     }
@@ -26,12 +27,12 @@ public class LEP extends CompteBancaire {
 
     @Override
     public void virement(CompteBancaire compteBeneficiaire, float montant) {
-        if(this.montant-PLAFOND_MIN-TAX_VIREMENT >= montant)
+        if (this.montant - PLAFOND_MIN - TAX_VIREMENT >= montant)
             super.virement(compteBeneficiaire, montant);
     }
 
     @Override
     public void appliquerInteret() {
-        this.montant += this.montant*INTERRET/100;
+        this.montant += this.montant * INTERRET / 100;
     }
 }
