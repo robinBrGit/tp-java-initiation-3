@@ -50,4 +50,9 @@ public abstract class CompteBancaire implements Serializable {
     public void appliquerInteret(){
 
     }
+
+    @Override
+    public String toString() {
+        return this.proprietaire+" : "+this.montant;
+    }
 }

@@ -65,7 +65,9 @@ public class App
         //uneBanque.addVirementAuto(compte1,compte2,200);
         //uneBanque.addVirementAuto(compte2,compte3,400);
 
-        System.out.println(uneBanque.getListeVirementAuto());
+        // System.out.println(uneBanque.getListeVirementAuto());
+
+        System.out.println(uneBanque.getListCompteBancaireFrom(eleve1));
 
     }
 }
