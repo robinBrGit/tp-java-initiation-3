@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+// TODO: 06/06/2019 Ajouter des commentaire 
 public class Banque implements Serializable{
     private ArrayList<Proprietaire> listProprietaire;
     private ArrayList<CompteBancaire> listCompteBancaire;
@@ -40,10 +41,11 @@ public class Banque implements Serializable{
     public ArrayList<Proprietaire> searchProprietaires(String nomProprietaire){
         ArrayList<Proprietaire> listProprio = new ArrayList<Proprietaire>();
         for (Proprietaire unProprio: listProprietaire) {
-            if(unProprio.getNom().equals(nomProprietaire) || unProprio.getNom().contains(nomProprietaire)){
+            if(unProprio.getNom().contains(nomProprietaire)){
                 listProprio.add(unProprio);
             }
         }
+
         return  listProprio;
     }
 

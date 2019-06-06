@@ -8,15 +8,17 @@ public class CompteCourant extends CompteBancaire {
         this.decouvert = decouvert;
     }
 
+    // TODO: 06/06/2019 gerer les execption
     @Override
     public void virement(CompteBancaire compteBeneficiaire, float montant) {
         if(this.montant+this.decouvert > montant){
             this.montant-= montant;
             compteBeneficiaire.depot(montant);
-            if(!this.proprietaire.getNom().equals(compteBeneficiaire.proprietaire.getNom()))this.montant-=1;
+            if(!this.proprietaire.getNom().equals(compteBeneficiaire.proprietaire.getNom()))this.montant-=TAX_VIREMENT;
         }
     }
 
+    // TODO: 06/06/2019 gerer les execption
     @Override
     public void retrait(float montantRetrait) {
         if(this.montant+this.decouvert > montantRetrait) {

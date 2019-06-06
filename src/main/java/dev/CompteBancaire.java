@@ -43,7 +43,7 @@ public abstract class CompteBancaire implements Serializable {
         if(this.montant-TAX_VIREMENT >= montant){
             this.montant-= montant;
             compteBeneficiaire.depot(montant);
-            if(!this.proprietaire.getNom().equals(compteBeneficiaire.proprietaire.getNom()))this.montant-=1;
+            if(!this.proprietaire.getNom().equals(compteBeneficiaire.proprietaire.getNom()))this.montant-=TAX_VIREMENT;
         }
     }
 

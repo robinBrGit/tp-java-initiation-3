@@ -1,5 +1,6 @@
 package dev;
 
+// TODO: 06/06/2019 gerer les execption
 public class LEP extends CompteBancaire {
     private final float INTERRET = 1.5f;
     private final float PLAFOND_MIN = 30;

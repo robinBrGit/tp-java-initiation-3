@@ -1,4 +1,5 @@
 package dev;
+// TODO: 06/06/2019 gerer les execption de la classe
 
 public class LDD extends CompteBancaire {
     private final float INTERRET = 1f;
