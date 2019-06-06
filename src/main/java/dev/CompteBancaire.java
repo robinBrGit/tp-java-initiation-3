@@ -7,6 +7,18 @@ public abstract class CompteBancaire {
     protected float montant;
     protected final float TAX_VIREMENT = 1;
 
+    public Proprietaire getProprietaire() {
+        return proprietaire;
+    }
+
+    public int getIdCompteUnique() {
+        return idCompteUnique;
+    }
+
+    public float getMontant() {
+        return montant;
+    }
+
     public CompteBancaire(Proprietaire proprietaire, float montant) {
         this.proprietaire = proprietaire;
         this.idCompteUnique = NB_COMPTE;
